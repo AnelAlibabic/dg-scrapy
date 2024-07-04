@@ -23,6 +23,7 @@ class AcerSpider(scrapy.Spider):
         self.token_expires_in = self.token['expires_in'] - 300  # Renew the token 5 minutes before it actually expires
         for gtin in self.sysgtin:
             if not gtin:
+                logging.warning(f'Message: Gtin missing')
                 return
             if time.time() - self.token_time >= self.token_expires_in:  
                 self.token = self.refresh_token(self.token['refresh_token'])
