@@ -1,9 +1,7 @@
 import json
 import scrapy
-import pyodbc
 import requests
 import logging
-import w3lib.html
 import time
 from scrapy.selector import Selector
 
