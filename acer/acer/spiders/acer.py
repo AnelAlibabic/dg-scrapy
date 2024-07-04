@@ -33,6 +33,7 @@ class AcerSpider(scrapy.Spider):
             'Authorization': f'Bearer {access_token}' ,
             'Content-Type': 'application/x-www-form-urlencoded'
             }
+            print(gtin)
             yield scrapy.Request(url, method='GET',headers=headers,cb_kwargs={'gtin':gtin,'token':self.token}, callback=self.parse)
 
     def get_token(self):
@@ -40,7 +41,6 @@ class AcerSpider(scrapy.Spider):
         data={'grant_type': 'password', 'client_id': '1','client_secret':'clientSecret','username':'anel.alibabic@digitecgalaxus.ch','password':'Ur=J?txtIC7\\DU^~LvI2NQU;R@CG3*'}
         response = requests.post('https://acer-pim.de/rest/v3/request/join/serverRest/accessToken/',data=data,headers=headers)
         data = response.json()
-        print(data['body'])
         return data['body']
 
     def refresh_token(self, refresh_token):
@@ -48,7 +48,6 @@ class AcerSpider(scrapy.Spider):
         data={'grant_type': 'refresh_token', 'client_id': '1','client_secret':'clientSecret','refresh_token':refresh_token}
         response = requests.post('https://acer-pim.de/rest/v3/request/join/serverRest/accessToken/',data=data,headers=headers)
         data = response.json()
-        print(data['body'])
         return data['body']
 
     def parse(self, response,gtin,token):
