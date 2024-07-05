@@ -15,6 +15,7 @@ class DellSpider(scrapy.Spider):
     def start_requests(self):
         url = 'https://channel.dell.com/splapi/ch/de/products'
         headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
             "accept": "application/json, text/plain, */*",
             "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
             "content-type": "application/json",
@@ -26,7 +27,7 @@ class DellSpider(scrapy.Spider):
             "sec-fetch-site": "same-origin"
         }
         body = json.dumps({
-            "page": {"itemsPerPage": 20, "pageNumber": 0},
+            "page": {"itemsPerPage": 500, "pageNumber": 0},
             "sortBy": [],
             "filters": [],
             "statuses":["Active"],
@@ -34,7 +35,7 @@ class DellSpider(scrapy.Spider):
             "filterCategories": [],
             "countries": []
         })
-        yield scrapy.Request(url, method='POST', body=body, headers=headers, callback=self.parse)
+        print(scrapy.Request(url, method='POST', body=body, headers=headers, callback=self.parse))
 
     def parse(self, response):
         data = json.loads(response.text)
@@ -75,6 +76,7 @@ class DellSpider(scrapy.Spider):
     def start_requests(self, page_number=0):
         url = 'https://channel.dell.com/splapi/ch/de/products'
         headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
             "accept": "application/json, text/plain, */*",
             "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
             "content-type": "application/json",
