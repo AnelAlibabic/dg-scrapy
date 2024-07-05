@@ -2,15 +2,9 @@
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
-
 from collections import OrderedDict
 import scrapy
 
-
-class DellItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
 
 class ProductItem(scrapy.Item):
     fields = OrderedDict([
@@ -45,11 +39,11 @@ class SpecItem(scrapy.Item):
 class MediaItem(scrapy.Item):
     fields = OrderedDict([
         ('providerKey', scrapy.Field()),
+        ('gtin', scrapy.Field()),
         ('datasheeturl_1', scrapy.Field()),
         ('datasheeturl_2', scrapy.Field()),
         ('datasheeturl_3', scrapy.Field()),
         ('energylabel', scrapy.Field()),
-        ('imageurl_1', scrapy.Field()),
         ('imageurl_1', scrapy.Field()),
         ('imageurl_2', scrapy.Field()),
         ('imageurl_3', scrapy.Field()),
@@ -59,6 +53,5 @@ class MediaItem(scrapy.Item):
         ('imageurl_7', scrapy.Field()),
         ('imageurl_8', scrapy.Field()),
         ('imageurl_9', scrapy.Field()),
-        ('imageurl_10', scrapy.Field()),       
-        
+        ('imageurl_10', scrapy.Field()),
     ])

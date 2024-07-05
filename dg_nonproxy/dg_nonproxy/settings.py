@@ -1,4 +1,4 @@
-# Scrapy settings for contorion project
+# Scrapy settings for dg_nonproxy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,26 +7,26 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "contorion"
+BOT_NAME = "dg_nonproxy"
 
-SPIDER_MODULES = ["contorion.spiders"]
-NEWSPIDER_MODULE = "contorion.spiders"
+SPIDER_MODULES = ["dg_nonproxy.spiders"]
+NEWSPIDER_MODULE = "dg_nonproxy.spiders"
 SCRAPEOPS_API_KEY = '76df6045-05e1-469a-85c3-8aa0950bbb8c'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "contorion (+http://www.yourdomain.com)"
+#USER_AGENT = "dg_nonproxy (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
-CLOSESPIDER_PAGECOUNT=30
+CONCURRENT_REQUESTS = 5
+
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.3
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -46,7 +46,7 @@ DOWNLOAD_DELAY = 0.3
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "contorion.middlewares.ContorionSpiderMiddleware": 543,
+#    "dg_nonproxy.middlewares.DgNonproxySpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -64,23 +64,27 @@ EXTENSIONS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#ITEM_PIPELINES = {
+#    "dg_nonproxy.pipelines.DgNonproxyPipeline": 300,
+#}
 ITEM_PIPELINES = {
-    "contorion.pipelines.ProductPipeline": 300,
-    "contorion.pipelines.SpecPipeline": 400,
+    "dg_nonproxy.pipelines.ProductPipeline": 300,
+    "dg_nonproxy.pipelines.SpecPipeline": 301,
+    "dg_nonproxy.pipelines.MediaPipeline": 302,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-#AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 1
 # The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 15
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 2.0
 # Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = False
+AUTOTHROTTLE_DEBUG = True
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings

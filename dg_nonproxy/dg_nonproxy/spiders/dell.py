@@ -3,7 +3,7 @@ import scrapy
 import pyodbc
 
 
-from dell.items import ProductItem, SpecItem
+from dg_noproxy.items import ProductItem, SpecItem
 
 
 class DellSpider(scrapy.Spider):

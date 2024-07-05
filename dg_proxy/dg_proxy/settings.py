@@ -1,4 +1,4 @@
-# Scrapy settings for dell project
+# Scrapy settings for dg_proxy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,15 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "dell"
+BOT_NAME = "dg_proxy"
 
-SPIDER_MODULES = ["dell.spiders"]
-NEWSPIDER_MODULE = "dell.spiders"
-SCRAPEOPS_API_KEY = '76df6045-05e1-469a-85c3-8aa0950bbb8c'
+SPIDER_MODULES = ["dg_proxy.spiders"]
+NEWSPIDER_MODULE = "dg_proxy.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+#USER_AGENT = "dg_proxy (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -46,34 +45,26 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "dell.middlewares.DellSpiderMiddleware": 543,
+#    "dg_proxy.middlewares.DgProxySpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "dell.middlewares.DellDownloaderMiddleware": 543,
+#    "dg_proxy.middlewares.DgProxyDownloaderMiddleware": 543,
 #}
-DOWNLOADER_MIDDLEWARES = {
-    "scrapeops_scrapy.middleware.retry.RetryMiddleware": 550,
-    "scrapy.downloadermiddlewares.retry.RetryMiddleware": None,
-}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
-EXTENSIONS = {
-    "scrapeops_scrapy.extension.ScrapeOpsMonitor": 500,
-}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    "dell.pipelines.SpecPipeline": 300,
-    "dell.pipelines.ProductPipeline": 300
-}
+#ITEM_PIPELINES = {
+#    "dg_proxy.pipelines.DgProxyPipeline": 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
