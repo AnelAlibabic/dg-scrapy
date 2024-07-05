@@ -10,6 +10,7 @@ from dg_nonproxy.items import ProductItem, SpecItem, MediaItem
 import paramiko
 from paramiko import Transport, SFTPClient
 import csv
+import os
 
 class BasePipeline:
     @classmethod
@@ -27,9 +28,16 @@ class BasePipeline:
     def open_spider(self, spider):
         self.filename = f'{self.spider.name}_Scrapy_{self.spider.file_format}.csv'
         self.file = open(self.filename, 'w', newline='', encoding= 'utf-8')
-        self.writer = csv.writer(self.file, delimiter=";")
+        if isinstance(self.spider.item_type, SpecItem):
+            self.writer = csv.writer(self.file, delimiter=";")
+        else:
+            self.writer = csv.writer(self.file, delimiter=";", quoting=csv.QUOTE_ALL)
         headerkeys = list(self.spider.item_type.fields.keys())
         self.writer.writerow(headerkeys)
+
+    def close_spider(self, spider):
+        self.file.close()
+        os.remove(self.filename)
 
 
 class SpecPipeline(BasePipeline):
