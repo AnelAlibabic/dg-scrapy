@@ -4,7 +4,7 @@ from scrapy.spiders import SitemapSpider
 from datetime import datetime
 import pyodbc
 import json
-from dg_noproxy.items import ProductItem, SpecItem
+from dg_nonproxy.items import ProductItem, SpecItem
 
 class MySitemapSpider(SitemapSpider):
     name = 'contorion'

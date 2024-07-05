@@ -5,7 +5,7 @@ import logging
 import time
 from scrapy.selector import Selector
 
-from dg_noproxy.items import ProductItem, SpecItem
+from dg_nonproxy.items import ProductItem, SpecItem
 
 class AcerSpider(scrapy.Spider):
     name = 'acer'

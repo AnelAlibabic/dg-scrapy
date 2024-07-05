@@ -6,7 +6,7 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-from dg_noproxy.items import ProductItem, SpecItem, MediaItem
+from dg_nonproxy.items import ProductItem, SpecItem, MediaItem
 import paramiko
 from paramiko import Transport, SFTPClient
 import csv
