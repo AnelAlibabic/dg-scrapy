@@ -12,6 +12,7 @@ BOT_NAME = "dg_nonproxy"
 SPIDER_MODULES = ["dg_nonproxy.spiders"]
 NEWSPIDER_MODULE = "dg_nonproxy.spiders"
 SCRAPEOPS_API_KEY = '76df6045-05e1-469a-85c3-8aa0950bbb8c'
+SCRAPEOPS_PROXY_ENABLED = True
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -54,6 +55,7 @@ CONCURRENT_REQUESTS = 5
 DOWNLOADER_MIDDLEWARES = {
     "scrapeops_scrapy.middleware.retry.RetryMiddleware": 550,
     "scrapy.downloadermiddlewares.retry.RetryMiddleware": None,
+    'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
 }
 
 # Enable or disable extensions
@@ -77,12 +79,12 @@ ITEM_PIPELINES = {
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 1
+AUTOTHROTTLE_START_DELAY = 0.5
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 15
+AUTOTHROTTLE_MAX_DELAY = 2
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-AUTOTHROTTLE_TARGET_CONCURRENCY = 2.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 5.0
 # Enable showing throttling stats for every response received:
 AUTOTHROTTLE_DEBUG = True
 
