@@ -13,49 +13,73 @@ import csv
 import os
 
 class BasePipeline:
-    @classmethod
-    def from_crawler(cls, crawler):
-        spider = crawler.spider
-        return cls(spider)
-
-    def __init__(self, spider):
-        self.spider = spider
-        self.filename = None
-        self.file = None
-        self.writer = None
-        self.data = []
-
-    def open_spider(self, spider):
-        self.filename = f'{self.spider.name}_Scrapy_{self.spider.file_format}.csv'
-        self.file = open(self.filename, 'w', newline='', encoding= 'utf-8')
-        if isinstance(self.spider.item_type, SpecItem):
-            self.writer = csv.writer(self.file, delimiter=";")
-        else:
-            self.writer = csv.writer(self.file, delimiter=";", quoting=csv.QUOTE_ALL)
-        headerkeys = list(self.spider.item_type.fields.keys())
-        self.writer.writerow(headerkeys)
-
+    
     def close_spider(self, spider):
+        if not self.data:
+            self.file.close()
+            os.remove(self.filename)
+            return
+        self.data.sort(key=lambda x: x[0])  # sort by providerkey
+        for row in self.data:
+            self.writer.writerow(row)
         self.file.close()
-        os.remove(self.filename)
+        transport = Transport(('ftp.digitec.ch', 22))
+        transport.connect(username='pdi_management', password='y59HVFJuyZiXco9f28Bh')
+        sftp = SFTPClient.from_transport(transport)
+        file = open(self.filename, 'rb')
+        sftp.put(self.filename, f'/Anel/{self.filename}')
+        file.close()
+        sftp.close()
+        transport.close()
+      #  os.remove(self.filename)
 
 
 class SpecPipeline(BasePipeline):
-    def __init__(self, spider):
-        super().__init__(spider)
-        self.spider.item_type = SpecItem
-        self.spider.file_format = 'spec'
+    def open_spider(self, spider):
+        self.data = []
+        self.filename = f'{spider.name}_Scrapy_spec.csv'
+        self.file = open(self.filename, 'w', newline='', encoding= 'utf-8')
+        self.writer = csv.writer(self.file, delimiter=";")
+        headerkeys = list(SpecItem.fields.keys())
+        self.writer.writerow(headerkeys)
 
-
+    
+    def process_item(self, item, spider):
+        if isinstance(item, SpecItem):
+            row = [item.get(key, "") for key in item.fields.keys()]
+            if row not in self.data:  # Duplikate vermeiden
+                self.data.append(row)  # convert list to tuple and add to list
+        return item
+    
 class ProductPipeline(BasePipeline):
-    def __init__(self, spider):
-        super().__init__(spider)
-        self.spider.item_type = ProductItem
-        self.spider.file_format = 'master'
+    def open_spider(self, spider):
+        self.data = []
+        self.filename = f'{spider.name}_Scrapy_master.csv'
+        self.file = open(self.filename, 'w', newline='', encoding= 'utf-8')
+        self.writer = csv.writer(self.file, delimiter=";", quoting=csv.QUOTE_ALL)
+        headerkeys = list(ProductItem.fields.keys())
+        self.writer.writerow(headerkeys)
 
 
+    def process_item(self, item, spider):
+        if isinstance(item, ProductItem):
+            row = [item.get(key, "") for key in item.fields.keys()]
+            if row not in self.data:  # Duplikate vermeiden
+                self.data.append(row)  # convert list to tuple and add to list
+        return item
+    
 class MediaPipeline(BasePipeline):
-    def __init__(self, spider):
-        super().__init__(spider)
-        self.spider.item_type = MediaItem
-        self.spider.file_format = 'media'
+    def open_spider(self, spider):
+        self.data = []
+        self.filename = f'{spider.name}_Scrapy_media.csv'
+        self.file = open(self.filename, 'w', newline='', encoding= 'utf-8')
+        self.writer = csv.writer(self.file, delimiter=";", quoting=csv.QUOTE_ALL)
+        headerkeys = list(MediaItem.fields.keys())
+        self.writer.writerow(headerkeys)
+
+    def process_item(self, item, spider):
+        if isinstance(item, MediaItem):
+            row = [item.get(key, "") for key in item.fields.keys()]
+            if row not in self.data:  # Duplikate vermeiden
+                self.data.append(row)  # convert list to tuple and add to list
+        return item
