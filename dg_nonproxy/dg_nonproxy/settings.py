@@ -12,7 +12,7 @@ BOT_NAME = "dg_nonproxy"
 SPIDER_MODULES = ["dg_nonproxy.spiders"]
 NEWSPIDER_MODULE = "dg_nonproxy.spiders"
 SCRAPEOPS_API_KEY = '76df6045-05e1-469a-85c3-8aa0950bbb8c'
-SCRAPEOPS_PROXY_ENABLED = True
+#SCRAPEOPS_PROXY_ENABLED = False
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

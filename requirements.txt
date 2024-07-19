@@ -1,7 +1,7 @@
-pandas==2.2.1
-paramiko==3.4.0
-pyodbc==5.1.0
-scrapeops-scrapy==0.5.4
-Scrapy==2.11.2
-scrapy-proxy-pool==0.1.9
-scrapy-user-agents==0.1.1
+pandas
+paramiko
+scrapeops-scrapy
+Scrapy
+scrapy-proxy-pool
+scrapeops_scrapy_proxy_sdk
+scrapy-user-agents
