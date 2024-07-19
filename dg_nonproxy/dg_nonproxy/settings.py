@@ -55,7 +55,7 @@ CONCURRENT_REQUESTS = 5
 DOWNLOADER_MIDDLEWARES = {
     "scrapeops_scrapy.middleware.retry.RetryMiddleware": 550,
     "scrapy.downloadermiddlewares.retry.RetryMiddleware": None,
-    'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
+#    'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
 }
 
 # Enable or disable extensions
